@@ -34,6 +34,7 @@ class Study:
     target: str | None = None
     protocol: str | None = None
     limitations: str | None = None
+    peer_reviewed: bool = True
     abstract: str | None = None  # filled in by scripts/fetch_pubmed.py when available
 
     @property

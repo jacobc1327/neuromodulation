@@ -217,12 +217,14 @@ def enrichment_curve(enrichment: pd.DataFrame, path: Path):
     _save(fig, path)
 
 
-def corpus_overview(studies: pd.DataFrame, path: Path):
+def corpus_overview(studies: pd.DataFrame, path: Path | str):
+    path = Path(path)
     _style()
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10, 3.8))
     by_cond = studies["condition_group"].value_counts().sort_values()
     a1.barh(by_cond.index, by_cond.values, color=BLUE, height=0.55)
-    a1.set_title(f"Corpus: {len(studies)} peer-reviewed studies")
+    n_peer = int(studies.get("peer_reviewed", pd.Series([True] * len(studies))).fillna(True).sum())
+    a1.set_title(f"Corpus: {len(studies)} studies ({n_peer} peer-reviewed)")
     a1.grid(axis="y", visible=False)
     for i, v in enumerate(by_cond.values):
         a1.text(v, i, f" {v}", va="center", color=INK2, fontsize=9)

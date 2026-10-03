@@ -46,6 +46,12 @@ def _rag_eval(args):
     if args.out:
         with open(args.out, "w") as f:
             json.dump(result, f, indent=2)
+    if args.figure:
+        import pandas as pd
+
+        from neuromod.viz.plots import corpus_overview
+
+        corpus_overview(pd.DataFrame([s.__dict__ for s in assistant.index.studies]), args.figure)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -79,6 +85,7 @@ def build_parser() -> argparse.ArgumentParser:
     ev = sub.add_parser("rag-eval", help="evaluate retrieval and citation grounding")
     ev.add_argument("--k", type=int, default=5)
     ev.add_argument("--out", default=None)
+    ev.add_argument("--figure", default=None, help="also write a corpus overview PNG here")
     ev.set_defaults(func=_rag_eval)
     return p
 

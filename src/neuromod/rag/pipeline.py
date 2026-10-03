@@ -24,7 +24,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import numpy as np
-from langchain_core.documents import Document
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -92,9 +91,10 @@ class RTMSResearchAssistant:
             raise ValueError(f"mode must be one of {MODES}")
         docs = self.index.retriever(k=k or self.k).invoke(question)
         studies = [self.index.by_id[d.metadata["study_id"]] for d in docs]
-        source_texts = [d.page_content for d in docs]
+        # Ground against each study's full card, not just the retrieved chunk.
+        source_texts = [s.card() for s in studies]
         if self.llm is not None:
-            answer = self._generate_llm(question, mode, docs)
+            answer = self._generate_llm(question, mode, source_texts)
             backend = f"llm:{getattr(self.llm, 'model', getattr(self.llm, 'model_name', 'chat'))}"
         else:
             answer = {"ask": self._extractive_answer,
@@ -122,8 +122,8 @@ class RTMSResearchAssistant:
         return self.run(question, "design", **kw)
 
     # ------------------------------------------------------------------ LLM path
-    def _generate_llm(self, question: str, mode: str, docs: list[Document]) -> str:
-        context = "\n\n".join(f"[S{i}] {d.page_content}" for i, d in enumerate(docs, 1))
+    def _generate_llm(self, question: str, mode: str, sources: list[str]) -> str:
+        context = "\n\n".join(f"[S{i}] {text}" for i, text in enumerate(sources, 1))
         prompt = ChatPromptTemplate.from_messages([
             ("system", SYSTEM_PROMPT),
             ("human", "Sources:\n{context}\n\n" + TASK_PROMPTS[mode]),
@@ -143,7 +143,8 @@ class RTMSResearchAssistant:
                 vec = np.asarray(emb.embed_query(sent))
                 overlap = len(q_tok & set(tokenize(sent))) / max(1, len(q_tok))
                 rank_prior = 1.0 / (1 + i)  # retrieval order
-                cands.append((float(q_vec @ vec) + overlap + 0.3 * rank_prior, i, sent))
+                finding = 0.25 if _FINDING.search(sent) else 0.0  # prefer results over methods
+                cands.append((float(q_vec @ vec) + overlap + 0.3 * rank_prior + finding, i, sent))
         cands.sort(key=lambda c: -c[0])
         picked, per = [], Counter()
         for _, i, sent in cands:
@@ -254,7 +255,10 @@ class RTMSResearchAssistant:
         m = self._metrics()
         if not m:
             return None
-        top = [f for f in m["shap"]["response_top_predictors"] if f not in ("active", "target")][:3]
+        from neuromod.models.features import PRETTY_NAMES
+
+        top = [PRETTY_NAMES.get(f, f) for f in m["shap"]["response_top_predictors"]
+               if f not in ("active", "target")][:3]
         return (f"{prefix}: the synthetic-cohort XGBoost model ranks {', '.join(top)} as the "
                 "strongest SHAP predictors of response; treat these as candidate stratification "
                 "variables to test, not as evidence (synthetic data).")
@@ -268,6 +272,12 @@ class RTMSResearchAssistant:
                 f"responders cut the randomized sample for 80% power from "
                 f"{h['n_randomized_all_comers']:.0f} to {h['n_randomized_top50pct']:.0f} "
                 f"({h['randomized_sample_reduction_top50pct']:.0%} fewer).")
+
+
+_FINDING = re.compile(
+    r"\b(reduc\w*|improv\w*|significant\w*|no (?:clear |significant )?(?:difference|evidence|effect)"
+    r"|conclu\w*|effective|efficacy|greater|lower|higher|decreas\w*|increas\w*|superior"
+    r"|non-?inferior|remission|response rate|abstinen\w*|quit rate|effect size|hedges)\b", re.I)
 
 
 def _norm_target(t: str | None) -> str:
