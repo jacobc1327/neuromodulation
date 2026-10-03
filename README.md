@@ -3,7 +3,7 @@
 **Predicting who responds to rTMS, and who stays abstinent, in veterans with substance use disorders and comorbid PTSD. Plus a citation-grounded research assistant over the rTMS literature.**
 
 [![CI](https://github.com/jacobc1327/neuromodulation/actions/workflows/ci.yml/badge.svg)](https://github.com/jacobc1327/neuromodulation/actions/workflows/ci.yml)
-![Python](https://img.shields.io/badge/python-3.10%E2%80%933.12-blue)
+![Python](https://img.shields.io/badge/python-3.11%E2%80%933.12-blue)
 ![XGBoost](https://img.shields.io/badge/XGBoost-survival%3Acox-orange)
 ![scikit-survival](https://img.shields.io/badge/scikit--survival-CoxPH%20%7C%20RSF%20%7C%20GBSA-green)
 ![LangChain + FAISS](https://img.shields.io/badge/LangChain-FAISS%20hybrid%20RAG-purple)
@@ -189,7 +189,7 @@ data/corpus/               studies.jsonl (42 studies), eval_questions.jsonl, REF
 reports/                   metrics.json, rag_eval.json, figures/
 docs/synthetic_cohort.md   every simulation assumption and its rationale
 scripts/fetch_pubmed.py    enrich the corpus with official PubMed abstracts
-tests/                     18 pytest tests (CI on Python 3.10 and 3.12)
+tests/                     18 pytest tests (CI on Python 3.11 and 3.12)
 ```
 
 ## Configuration

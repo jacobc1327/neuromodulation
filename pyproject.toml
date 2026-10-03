@@ -7,7 +7,7 @@ name = "neuromod"
 version = "0.1.0"
 description = "Noninvasive neuromodulation for addiction: rTMS response & relapse modeling (XGBoost, scikit-survival, SHAP) and a citation-grounded RAG over the rTMS literature (LangChain, FAISS)."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Jacob Cho" }]
 dependencies = [
@@ -17,7 +17,7 @@ dependencies = [
     "scikit-learn>=1.4",
     "xgboost>=2.0",
     "scikit-survival>=0.23",
-    "shap>=0.45",
+    "shap>=0.48",
     "matplotlib>=3.8",
     "faiss-cpu>=1.8",
     "langchain-core>=0.3",
@@ -45,7 +45,7 @@ filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning", "ignore
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
