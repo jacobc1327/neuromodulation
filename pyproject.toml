@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neuromod"
+version = "0.1.0"
+description = "Noninvasive neuromodulation for addiction: rTMS response & relapse modeling (XGBoost, scikit-survival, SHAP) and a citation-grounded RAG over the rTMS literature (LangChain, FAISS)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Jacob Cho" }]
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "scipy>=1.11",
+    "scikit-learn>=1.4",
+    "xgboost>=2.0",
+    "scikit-survival>=0.23",
+    "shap>=0.45",
+    "matplotlib>=3.8",
+    "faiss-cpu>=1.8",
+    "langchain-core>=0.3",
+    "langchain-community>=0.3",
+    "langchain-text-splitters>=0.3",
+]
+
+[project.optional-dependencies]
+llm = ["langchain-anthropic>=0.3"]
+embeddings = ["sentence-transformers>=3.0", "langchain-huggingface>=0.1"]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+neuromod = "neuromod.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+neuromod = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning", "ignore::UserWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B905"]
