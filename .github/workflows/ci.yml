@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install
+        run: pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check .
+      - name: Unit tests
+        run: pytest -q
+      - name: Smoke-test the CLI (offline RAG + small ML run)
+        env:
+          NEUROMOD_OFFLINE: "1"
+        run: |
+          neuromod ask "Does rTMS reduce craving in alcohol use disorder?" --k 4
+          neuromod rag-eval --k 5
+          neuromod ml --n 500 --n-iter 3 --out /tmp/ml-smoke --no-figures

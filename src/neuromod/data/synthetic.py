@@ -97,6 +97,8 @@ HAZARD_COEFS: dict[str, float] = {
     "social_support": -0.20,
     "on_mat": -0.30,
     "psqi": 0.04,
+    "pcl5_hinge60": 0.05,  # relapse risk accelerates with very severe PTSD
+    "housing_x_low_support": 0.60,  # unstable housing without a support network
 }
 CENTER = {
     "baseline_craving": 60.0,
@@ -158,7 +160,7 @@ def _response_logit(df: pd.DataFrame, active: np.ndarray) -> np.ndarray:
     return z
 
 
-def simulate_cohort(n: int = 1500, seed: int = 7) -> SyntheticCohort:
+def simulate_cohort(n: int = 2000, seed: int = 7) -> SyntheticCohort:
     """Simulate a 1:1 randomized active-vs-sham rTMS trial with 52-week follow-up."""
     rng = np.random.default_rng(seed)
 
@@ -237,6 +239,9 @@ def simulate_cohort(n: int = 1500, seed: int = 7) -> SyntheticCohort:
         log_hazard = log_hazard + h[k] * (df[k].to_numpy() - CENTER[k])
     for k in ["tbi_history", "housing_unstable", "on_mat"]:
         log_hazard = log_hazard + h[k] * df[k].to_numpy()
+    log_hazard = log_hazard + h["pcl5_hinge60"] * np.maximum(df["pcl5"].to_numpy() - 60, 0)
+    log_hazard = log_hazard + h["housing_x_low_support"] * (
+        (df["housing_unstable"].to_numpy() == 1) & (df["social_support"].to_numpy() < 4.0))
     shape, scale = 0.85, 26.0  # early-weighted hazard; median ~17 wk for a typical patient
     u = rng.uniform(size=n)
     t_relapse = scale * (-np.log(u) / np.exp(log_hazard)) ** (1 / shape)
