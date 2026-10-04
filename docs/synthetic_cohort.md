@@ -30,7 +30,7 @@ literature. They are modeling assumptions, not estimates taken from any one stud
 
 | Parameter | Assumption in the simulator | Rationale |
 |---|---|---|
-| Active vs sham | Moderate main effect on response (about +13 percentage points overall) | Meta-analyses of NIBS for craving report small-to-moderate pooled effects that vary between studies |
+| Active vs sham | Calibrated so the marginal active-vs-sham log odds ratio equals the pooled SUD meta-analysis (g = 0.69, log OR 1.24; about +32 percentage points) | Set by `neuromod meta` from 8 real sham-controlled trials; see "Effect calibration" below |
 | Baseline craving × active | Larger benefit with higher baseline craving | Craving is the main target of DLPFC/mPFC protocols, so there is a ceiling/floor logic |
 | Sessions × active | Saturating dose-response: little benefit below about 10 sessions | Trials use multi-session courses (about 10–20+) and assume cumulative effects |
 | PTSD severity (PCL-5) | Attenuates response, steeply above 60 | Severe PTSD is a well-known complicating factor in SUD treatment |
@@ -45,6 +45,17 @@ literature. They are modeling assumptions, not estimates taken from any one stud
 PCL-5 is drawn so that every patient meets the provisional PTSD cut-off (≥ 33).
 Depression and craving are correlated with PTSD severity. The default cohort has
 n = 2,000 and seed = 7, and is fully deterministic.
+
+## Effect calibration
+
+When `reports/meta/meta_results.json` exists, `neuromod ml` reads the pooled Hedges' g
+from the SUD meta-analysis, converts it to a log odds ratio (g × π/√3, Chinn 2000), and
+finds the active-arm coefficient whose *marginal* log odds ratio in the simulated cohort
+matches it (bisection in `calibrate_active_coef`). The marginal effect is the target
+because that is what a trial measures: the conditional coefficient is larger, since the
+logistic model is non-collapsible. `neuromod ml --no-calibration` uses the fixed default
+coefficient instead. The calibration is recorded under `cohort.effect_calibration` in
+`reports/metrics.json`.
 
 ## Ground truth shipped with the data
 
