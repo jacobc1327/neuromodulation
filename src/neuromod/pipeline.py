@@ -8,8 +8,9 @@ from pathlib import Path
 import numpy as np
 from sklearn.metrics import roc_auc_score
 
-from neuromod.data.synthetic import BASELINE_FEATURES, simulate_cohort
+from neuromod.data.synthetic import BASELINE_FEATURES
 from neuromod.explain.shap_analysis import explain_tree_model, oracle_shap, recovery_metrics
+from neuromod.meta.effects import simulate_cohort, smd_to_log_odds
 from neuromod.models.clinical_eval import (
     conformal_report,
     dca_summary,
@@ -22,14 +23,33 @@ from neuromod.models.survival import train_survival_models
 from neuromod.viz import plots
 
 
+def meta_calibration(path: str | Path = "reports/meta/meta_results.json",
+                     analysis: str = "sud") -> dict | None:
+    """Pooled real-trial effect (Hedges' g) -> population log OR for the simulator."""
+    p = Path(path)
+    if not p.exists():
+        return None
+    res = json.loads(p.read_text())["analyses"].get(analysis)
+    if not res:
+        return None
+    g = res["pooled"]["g"]
+    return {"source": f"{analysis} meta-analysis", "pooled_g": g,
+            "k": res["pooled"]["k"], "log_or": smd_to_log_odds(g)}
+
+
 def run_ml_pipeline(out_dir: str | Path = "reports", n: int = 2000, seed: int = 7,
-                    n_iter: int = 25, figures: bool = True, verbose: bool = True) -> dict:
+                    n_iter: int = 25, figures: bool = True, verbose: bool = True,
+                    calibrate: bool = True) -> dict:
     out = Path(out_dir)
     fig_dir = out / "figures"
     log = print if verbose else (lambda *a, **k: None)
 
-    log(f"[1/6] Simulating synthetic veteran cohort (n={n}, seed={seed}) ...")
-    cohort = simulate_cohort(n=n, seed=seed)
+    calibration = meta_calibration(out / "meta" / "meta_results.json") if calibrate else None
+    log(f"[1/6] Simulating synthetic veteran cohort (n={n}, seed={seed}"
+        + (f", treatment effect calibrated to pooled g={calibration['pooled_g']:.2f}"
+           if calibration else "") + ") ...")
+    cohort = simulate_cohort(n=n, seed=seed,
+                             active_log_or=calibration["log_or"] if calibration else None)
     df, truth = cohort.data, cohort.truth
     (out / "data").mkdir(parents=True, exist_ok=True)
     df.to_csv(out / "data" / "synthetic_cohort.csv", index=False)
@@ -47,7 +67,8 @@ def run_ml_pipeline(out_dir: str | Path = "reports", n: int = 2000, seed: int = 
 
     log("[4/6] SHAP: model explanations + ground-truth recovery check ...")
     shap_resp = explain_tree_model(resp.model, resp.X_test)
-    shap_oracle = oracle_shap(resp.X_test, resp.X_train, seed=seed)
+    shap_oracle = oracle_shap(resp.X_test, resp.X_train, seed=seed,
+                              active_coef=cohort.meta["active_coef"])
     recovery = recovery_metrics(shap_resp.importance, shap_oracle.importance)
     xgb_cox = surv.models["XGBoost Cox"]
     shap_relapse = explain_tree_model(xgb_cox, surv.X_test)
@@ -71,6 +92,9 @@ def run_ml_pipeline(out_dir: str | Path = "reports", n: int = 2000, seed: int = 
         "cohort": {
             "n": n,
             "seed": seed,
+            "effect_calibration": calibration,
+            "active_coef": cohort.meta["active_coef"],
+            "marginal_log_or_active_vs_sham": cohort.meta["marginal_log_or"],
             "response_rate_active": float(df.loc[df.active == 1, "responder"].mean()),
             "response_rate_sham": float(df.loc[df.active == 0, "responder"].mean()),
             "relapse_rate_52wk": float(df["relapse"].mean()),

@@ -29,3 +29,9 @@ def test_truth_is_consistent(small_cohort):
     t = small_cohort.truth
     assert np.allclose(t["true_cate"], t["p_response_if_active"] - t["p_response_if_sham"])
     assert t["p_response"].between(0, 1).all()
+
+
+def test_effect_calibration_hits_target_log_or():
+    c = simulate_cohort(n=1500, seed=5, active_log_or=0.8)
+    assert abs(c.meta["marginal_log_or"] - 0.8) < 1e-3
+    assert c.meta["active_coef"] != simulate_cohort(n=1500, seed=5).meta["active_coef"]

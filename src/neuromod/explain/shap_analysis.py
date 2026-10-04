@@ -58,12 +58,12 @@ def _decode(X: pd.DataFrame) -> pd.DataFrame:
 
 
 def oracle_shap(X: pd.DataFrame, background: pd.DataFrame, max_rows: int = 300,
-                seed: int = 0) -> ShapResult:
+                seed: int = 0, active_coef: float | None = None) -> ShapResult:
     """Interventional SHAP of the true response log-odds (permutation explainer)."""
 
     def true_logit(arr: np.ndarray) -> np.ndarray:
         frame = _decode(pd.DataFrame(arr, columns=X.columns))
-        return _response_logit(frame, frame["active"].to_numpy(dtype=float))
+        return _response_logit(frame, frame["active"].to_numpy(dtype=float), active_coef)
 
     rows = X.sample(min(max_rows, len(X)), random_state=seed)
     bg = shap.maskers.Independent(background.sample(min(100, len(background)),

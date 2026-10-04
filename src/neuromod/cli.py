@@ -12,7 +12,17 @@ def _ml(args):
     from neuromod.pipeline import run_ml_pipeline
 
     run_ml_pipeline(out_dir=args.out, n=args.n, seed=args.seed, n_iter=args.n_iter,
-                    figures=not args.no_figures)
+                    figures=not args.no_figures, calibrate=not args.no_calibration)
+
+
+def _meta(args):
+    from neuromod.meta.run import run_meta
+
+    summary = run_meta(out_dir=args.out, figures=not args.no_figures)
+    for res in summary["analyses"].values():
+        p = res["pooled"]
+        print(f"{res['title']}: g = {p['g']:.2f} [{p['ci95'][0]:.2f}, {p['ci95'][1]:.2f}], "
+              f"k = {p['k']}, I2 = {p['I2']:.0%}, PI [{p['pi95'][0]:.2f}, {p['pi95'][1]:.2f}]")
 
 
 def _simulate(args):
@@ -64,7 +74,14 @@ def build_parser() -> argparse.ArgumentParser:
     ml.add_argument("--seed", type=int, default=7)
     ml.add_argument("--n-iter", type=int, default=25, help="hyper-parameter search iterations")
     ml.add_argument("--no-figures", action="store_true")
+    ml.add_argument("--no-calibration", action="store_true",
+                    help="ignore the meta-analysis when setting the simulated treatment effect")
     ml.set_defaults(func=_ml)
+
+    meta = sub.add_parser("meta", help="random-effects meta-analysis of the corpus trials")
+    meta.add_argument("--out", default="reports")
+    meta.add_argument("--no-figures", action="store_true")
+    meta.set_defaults(func=_meta)
 
     sim = sub.add_parser("simulate", help="write a synthetic veteran cohort to CSV")
     sim.add_argument("--n", type=int, default=2000)

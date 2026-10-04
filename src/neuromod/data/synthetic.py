@@ -132,8 +132,11 @@ def _sigmoid(z: np.ndarray) -> np.ndarray:
     return 1.0 / (1.0 + np.exp(-z))
 
 
-def _response_logit(df: pd.DataFrame, active: np.ndarray) -> np.ndarray:
-    c = RESPONSE_COEFS
+def _response_logit(df: pd.DataFrame, active: np.ndarray,
+                    active_coef: float | None = None) -> np.ndarray:
+    c = dict(RESPONSE_COEFS)
+    if active_coef is not None:
+        c["active"] = active_coef
 
     def col(name: str) -> np.ndarray:
         return df[name].to_numpy(dtype=float)
@@ -160,8 +163,34 @@ def _response_logit(df: pd.DataFrame, active: np.ndarray) -> np.ndarray:
     return z
 
 
-def simulate_cohort(n: int = 2000, seed: int = 7) -> SyntheticCohort:
-    """Simulate a 1:1 randomized active-vs-sham rTMS trial with 52-week follow-up."""
+def _marginal_log_or(df: pd.DataFrame, active_coef: float) -> float:
+    p1 = _sigmoid(_response_logit(df, np.ones(len(df)), active_coef)).mean()
+    p0 = _sigmoid(_response_logit(df.assign(target="sham"), np.zeros(len(df)),
+                                  active_coef)).mean()
+    return float(np.log(p1 / (1 - p1)) - np.log(p0 / (1 - p0)))
+
+
+def calibrate_active_coef(df: pd.DataFrame, target_log_or: float) -> float:
+    """Bisection for the active-arm coefficient giving a target population log OR."""
+    lo, hi = -4.0, 6.0
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        if _marginal_log_or(df, mid) < target_log_or:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+def simulate_cohort(n: int = 2000, seed: int = 7,
+                    active_log_or: float | None = None) -> SyntheticCohort:
+    """Simulate a 1:1 randomized active-vs-sham rTMS trial with 52-week follow-up.
+
+    ``active_log_or`` calibrates the treatment effect so that the population-level
+    active-vs-sham odds ratio for response equals ``exp(active_log_or)``. The pipeline
+    sets it from the pooled effect of the real-trial meta-analysis (``neuromod meta``).
+    Interactions (craving, dose, TBI, protocol) are kept; only the main effect moves.
+    """
     rng = np.random.default_rng(seed)
 
     age = np.clip(rng.normal(42, 11, n), 22, 75).round()
@@ -226,8 +255,10 @@ def simulate_cohort(n: int = 2000, seed: int = 7) -> SyntheticCohort:
     )
 
     # --- Acute response (>= 50% craving reduction at end of treatment) ---
-    z1 = _response_logit(df, np.ones(n))
-    z0 = _response_logit(df.assign(target="sham"), np.zeros(n))
+    active_coef = (RESPONSE_COEFS["active"] if active_log_or is None
+                   else calibrate_active_coef(df, active_log_or))
+    z1 = _response_logit(df, np.ones(n), active_coef)
+    z0 = _response_logit(df.assign(target="sham"), np.zeros(n), active_coef)
     z = np.where(active == 1, z1, z0)
     p_response = _sigmoid(z)
     responder = rng.binomial(1, p_response)
@@ -269,7 +300,9 @@ def simulate_cohort(n: int = 2000, seed: int = 7) -> SyntheticCohort:
         data=df,
         truth=truth,
         seed=seed,
-        meta={"n": n, "synthetic": True, "follow_up_weeks": FOLLOW_UP_WEEKS},
+        meta={"n": n, "synthetic": True, "follow_up_weeks": FOLLOW_UP_WEEKS,
+              "active_coef": active_coef, "target_log_or": active_log_or,
+              "marginal_log_or": _marginal_log_or(df, active_coef)},
     )
 
 
