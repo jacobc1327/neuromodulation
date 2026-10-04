@@ -19,8 +19,8 @@
 
 **[Try the live demo](https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/)**: no install needed.
 
-<p align="center"><a href="https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/"><img src="docs/img/demo.gif" width="88%" alt="Walkthrough of the live demo"></a><br>
-<sub>A walkthrough of the live app: the patient calculator reacting to PTSD severity, TBI and treatment dose, then the literature assistant, the meta-analysis and the model report. Click to open it.</sub></p>
+<p align="center"><a href="https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/"><img src="docs/img/demo_walkthrough.gif" width="88%" alt="Walkthrough of the live demo"></a><br>
+<sub>A screen recording of the app: dragging PTSD severity, adding TBI and cutting the dose updates the prediction, SHAP and survival curve live; then the literature assistant, meta-analysis and model report. Click to open the live app.</sub></p>
 
 Built in the context of a Duke Bass Connections project on noninvasive brain stimulation for addiction.
 
