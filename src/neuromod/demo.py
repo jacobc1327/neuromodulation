@@ -8,6 +8,7 @@ each arm, a conformal call, a SHAP breakdown and a relapse-free survival curve.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -20,6 +21,9 @@ from neuromod.explain.shap_analysis import grouped_shap
 from neuromod.models.clinical_eval import ConformalClassifier
 from neuromod.models.features import PRETTY_NAMES, encode
 from neuromod.models.survival import XGBCox, make_surv
+from neuromod.pipeline import meta_calibration
+
+META_RESULTS = Path(__file__).resolve().parents[2] / "reports" / "meta" / "meta_results.json"
 
 # Tuned values from the randomized search in `neuromod ml` (reports/metrics.json).
 RESPONSE_PARAMS = dict(n_estimators=330, max_depth=3, learning_rate=0.0106, subsample=0.69,
@@ -45,8 +49,11 @@ class PatientReport:
 
 
 class DemoModels:
-    def __init__(self, n: int = 2000, seed: int = 7):
-        cohort = simulate_cohort(n=n, seed=seed)
+    def __init__(self, n: int = 2000, seed: int = 7, calibrate: bool = True):
+        # Same treatment effect as `neuromod ml`: the pooled real-trial SUD estimate.
+        self.calibration = meta_calibration(META_RESULTS) if calibrate else None
+        cohort = simulate_cohort(n=n, seed=seed, active_log_or=self.calibration["log_or"]
+                                 if self.calibration else None)
         self.df = cohort.data
         X = encode(self.df)
         y = self.df["responder"].to_numpy()

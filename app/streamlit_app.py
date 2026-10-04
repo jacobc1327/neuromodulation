@@ -91,6 +91,10 @@ with tab_calc:
         m2.metric("P(response) with sham", f"{rep.p_sham:.0%}")
         m3.metric("Predicted benefit", f"{(rep.p_active - rep.p_sham) * 100:+.0f} pp")
         st.markdown(f"**Conformal call (90% coverage):** {rep.conformal_label}")
+        if models.calibration:
+            st.caption(f"Simulated treatment effect calibrated to the real-trial meta-analysis "
+                       f"(pooled g = {models.calibration['pooled_g']:.2f}, "
+                       f"k = {models.calibration['k']} sham-controlled SUD trials).")
 
         st.markdown("##### Why this prediction? (SHAP, log-odds of response)")
         top = rep.shap.head(10).copy()
