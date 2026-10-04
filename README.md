@@ -2,6 +2,7 @@
 
 **Predicting who responds to rTMS, and who stays abstinent, in veterans with substance use disorders and comorbid PTSD. Plus a citation-grounded research assistant over the rTMS literature.**
 
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/)
 [![CI](https://github.com/jacobc1327/neuromodulation/actions/workflows/ci.yml/badge.svg)](https://github.com/jacobc1327/neuromodulation/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11%E2%80%933.12-blue)
 ![XGBoost](https://img.shields.io/badge/XGBoost-survival%3Acox-orange)
@@ -16,7 +17,9 @@
 | **4. Clinical evaluation** | Decision curves, conformal prediction sets and a subgroup fairness audit for the response model | NumPy, scikit-learn |
 | **5. Interactive demo** | Patient-level calculator, literature assistant and meta-analysis browser | Streamlit, Altair |
 
-<p align="center"><img src="docs/img/demo_calculator.png" width="88%"><br>
+**[Try the live demo](https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/)**: no install needed.
+
+<p align="center"><a href="https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/"><img src="docs/img/demo_calculator.png" width="88%"></a><br>
 <sub>The patient calculator: response probability under active rTMS and sham, a conformal call, a per-patient SHAP breakdown and a relapse-free survival curve.</sub></p>
 
 Built in the context of a Duke Bass Connections project on noninvasive brain stimulation for addiction.
@@ -230,6 +233,8 @@ These are exploratory pools over a curated corpus, not a systematic review: ther
 ---
 
 ## Part 4: interactive demo
+
+Live at **[neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app](https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/)**. To run it locally:
 
 ```bash
 pip install -e ".[app]"
