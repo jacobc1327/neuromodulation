@@ -1,0 +1,33 @@
+{
+  "retrieval": {
+    "bm25": {
+      "recall@5": 0.9097222222222222,
+      "mrr@5": 0.9166666666666666,
+      "ndcg@5": 0.8676825151018472,
+      "hit@5": 0.9583333333333334
+    },
+    "dense": {
+      "recall@5": 0.8701388888888889,
+      "mrr@5": 0.9166666666666666,
+      "ndcg@5": 0.8424012923219227,
+      "hit@5": 0.9583333333333334
+    },
+    "hybrid": {
+      "recall@5": 0.8888888888888888,
+      "mrr@5": 0.9375,
+      "ndcg@5": 0.8706581819874221,
+      "hit@5": 0.9583333333333334
+    },
+    "_meta": {
+      "n_questions": 24,
+      "n_studies": 42,
+      "k": 5
+    }
+  },
+  "grounding": {
+    "mean_grounding_score": 1.0,
+    "mean_citation_coverage": 1.0,
+    "answers_citing_a_relevant_study": 1.0,
+    "n_questions": 24
+  }
+}
