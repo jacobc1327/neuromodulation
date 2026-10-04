@@ -19,8 +19,8 @@
 
 **[Try the live demo](https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/)**: no install needed.
 
-<p align="center"><a href="https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/"><img src="docs/img/demo_calculator.png" width="88%"></a><br>
-<sub>The patient calculator: response probability under active rTMS and sham, a conformal call, a per-patient SHAP breakdown and a relapse-free survival curve.</sub></p>
+<p align="center"><a href="https://neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app/"><img src="docs/img/demo.gif" width="88%" alt="Walkthrough of the live demo"></a><br>
+<sub>A walkthrough of the live app: the patient calculator reacting to PTSD severity, TBI and treatment dose, then the literature assistant, the meta-analysis and the model report. Click to open it.</sub></p>
 
 Built in the context of a Duke Bass Connections project on noninvasive brain stimulation for addiction.
 
@@ -240,6 +240,8 @@ Live at **[neuromodulation-kn3blkgizmfaabtgjekclr.streamlit.app](https://neuromo
 pip install -e ".[app]"
 streamlit run app/streamlit_app.py
 ```
+
+<p align="center"><img src="docs/img/demo_calculator.png" width="80%"></p>
 
 The app has four tabs: a **patient calculator** (response probability under each arm, the conformal call, a SHAP breakdown and a relapse-free survival curve), the **literature assistant**, the **meta-analysis** browser and the **model report**. It runs offline with no API key.
 
