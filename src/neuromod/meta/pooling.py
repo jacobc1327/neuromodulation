@@ -114,11 +114,14 @@ def leave_one_out(y, v, labels: list[str], **kw) -> list[dict]:
 def meta_regression(y, v, x, names: list[str]) -> dict:
     """Mixed-effects meta-regression (method-of-moments tau^2, WLS coefficients).
 
-    ``x`` is a (k, p) moderator matrix without intercept.
+    ``x`` is a (k, p) moderator matrix without intercept. Returns ``None`` when the
+    design is rank deficient (collinear moderators) or leaves too few residual df.
     """
     y, v = np.asarray(y, float), np.asarray(v, float)
     X = np.column_stack([np.ones(len(y)), np.asarray(x, float)])
     k, p = X.shape
+    if np.linalg.matrix_rank(X) < p or k - p < 2:
+        return None
     W0 = np.diag(1 / v)
     beta0 = np.linalg.solve(X.T @ W0 @ X, X.T @ W0 @ y)
     resid = y - X @ beta0

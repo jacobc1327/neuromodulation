@@ -55,3 +55,22 @@ def test_reml_close_to_dl_and_tools_run():
     x = rng.integers(0, 2, (15, 1))
     mr = meta_regression(y, v, x, ["deep_tms"])
     assert set(mr["coefficients"]) == {"intercept", "deep_tms"}
+
+
+def test_run_meta_on_curated_data(tmp_path):
+    from neuromod.meta.run import run_meta
+
+    res = run_meta(out_dir=tmp_path, figures=False)["analyses"]
+    assert {"sud", "ptsd"} <= set(res)
+    sud = res["sud"]["pooled"]
+    assert sud["k"] >= 6 and sud["ci95"][0] < sud["g"] < sud["ci95"][1]
+    assert (tmp_path / "meta" / "study_effects.csv").exists()
+
+
+def test_meta_regression_rejects_collinear_moderators():
+    from neuromod.meta.pooling import meta_regression
+
+    x = np.array([[1, 1], [0, 0], [1, 1], [0, 0], [1, 1], [0, 0]])
+    y = np.array([0.5, 0.2, 0.7, 0.1, 0.6, 0.3])
+    assert meta_regression(y, np.full(6, 0.05), x, ["a", "b"]) is None
+    assert meta_regression(y, np.full(6, 0.05), x[:, :1], ["a"]) is not None

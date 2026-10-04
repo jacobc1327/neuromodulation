@@ -297,7 +297,7 @@ def forest_plot(rows: pd.DataFrame, pooled: dict, path: Path, title: str,
     ax.grid(axis="y", visible=False)
     ax.set_xlabel(xlabel)
     ax.set_title(title)
-    ax.legend(loc="lower left", fontsize=8.5, bbox_to_anchor=(0, -0.02 - 1.2 / (k + 3)))
+    ax.legend(loc="upper center", fontsize=8.5, ncol=2, bbox_to_anchor=(0.5, -1.9 / (k + 3)))
     _save(fig, path)
 
 

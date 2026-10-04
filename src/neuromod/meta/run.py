@@ -104,10 +104,18 @@ def run_meta(out_dir: str | Path = "reports", figures: bool = True,
             "n_participants": int(tab.n_active.fillna(0).sum() + tab.n_sham.fillna(0).sum()),
             "excluded": excluded,
         }
-        mods = [m for m in ("deep_tms", "medial_target", "theta_burst")
-                if 0 < tab[m].sum() < len(tab)]
-        if mods and len(tab) >= 6:
-            res["meta_regression"] = meta_regression(y, v, tab[mods].to_numpy(), mods)
+        # Keep moderators with at least two studies at each level, then drop any
+        # column that duplicates one already kept.
+        mods, seen = [], set()
+        for m in ("deep_tms", "medial_target", "theta_burst"):
+            col = tuple(tab[m])
+            if 2 <= tab[m].sum() <= len(tab) - 2 and col not in seen:
+                mods.append(m)
+                seen.add(col)
+        if mods and len(tab) >= len(mods) + 4:
+            reg = meta_regression(y, v, tab[mods].to_numpy(), mods)
+            if reg is not None:
+                res["meta_regression"] = reg
         results[key] = res
         tables.append(tab.assign(analysis=key))
         if figures:

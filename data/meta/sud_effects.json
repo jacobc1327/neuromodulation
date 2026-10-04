@@ -1,0 +1,204 @@
+[
+ {
+  "id": "zangen2021",
+  "outcome": "4-week continuous quit rate until week 18 (cotinine-verified)",
+  "design": "parallel",
+  "timepoint": "until week 18 (primary)",
+  "n_active": 123,
+  "n_sham": 139,
+  "evidence_quote": "FDA K200957: 'DTMS Sham Age (years) N 123 139'; 'the primary efficacy end-point, 4-week Continuous Quit Rate (CQR) was statistically significantly higher (p-value=0.0238) in the DTMS arm (17.1%) than in the sham arm (7.9%) for the ITT-Safety population, (N=262)'. Paper abstract: 'In intent-to-treat analysis set (N=234), the CQR until Week 18 was 19.4% active rTMS and 8.7% sham rTMS (X2=5.655, p=0.017). Among completers (N=169), CQR until Week 18 was 28.0% active rTMS and 11.7%'",
+  "source_url": "https://www.accessdata.fda.gov/cdrh_docs/pdf20/K200957.pdf ; https://api.openalex.org/works/doi:10.1002/wps.20905 ; https://www.brainsway.com/wp-content/uploads/2021/09/World-Psychiatry_October-2021.pdf",
+  "extraction_notes": "Event counts BACK-CALCULATED from percentages (17.1% x 123 = 21.0; 7.9% x 139 = 11.0); not printed as counts. Same 21/11 also reproduce the paper's ITT-efficacy percentages if ITT split were 108/126 (19.44%/8.73%), but the per-arm split of N=234 was not found in readable text, so the ITT-safety N=262 split (123/139) is used. Craving data only in figures.",
+  "extractable": true,
+  "events_active": 21,
+  "events_sham": 11,
+  "higher_is_better": true
+ },
+ {
+  "id": "dinurklein2014",
+  "outcome": "abstinence at end of treatment (self-report confirmed by cotinine)",
+  "design": "parallel",
+  "timepoint": "end of treatment (13 sessions)",
+  "n_active": 32,
+  "n_sham": 31,
+  "evidence_quote": "'Abstinence rates were significantly greater in the 10 and 10 groups (43.75%, 25%) than in the placebo groups (13.3%, 0%, respectively; chi2 1 = 6.1, p = .039).' Table 1 n: 10-cue n=16, 10-no-cue n=16, 1-cue n=7, 1-no-cue n=7, 0-cue n=15, 0-no-cue n=16 ('The final analysis was performed in 115 subjects (77 completers)').",
+  "source_url": "https://www.brainsway.com/wp-content/uploads/2018/12/Dinur-Klein_Biol_Psychiatry_2014_H4_Smoking.pdf",
+  "extraction_notes": "Active = pooled 10 Hz (cue + no-cue) vs pooled sham (cue + no-cue); 1 Hz arms excluded. Counts DERIVED from percentages x Table 1 completer n (7/16=43.75%, 4/16=25%, 2/15=13.3%, 0/16) -> 11/32 vs 2/31; denominators are completers (Table 1 n sums to 77). Primary paper outcome was cigarette consumption (HF vs sham 'F2,76 = 14.56'; no per-arm SDs read); craving (sTCQ) showed 'No significant treatment or cue effects' but no numbers.",
+  "extractable": true,
+  "events_active": 11,
+  "events_sham": 2,
+  "higher_is_better": true
+ },
+ {
+  "id": "lolli2021",
+  "outcome": "cocaine urine negativization (primary)",
+  "design": "parallel",
+  "timepoint": "end of trial",
+  "n_active": 30,
+  "n_sham": 27,
+  "evidence_quote": "'Ten/30 (33%) of rTMS-treated patients tested negative for cocaine in urine, in contrast to 4/27 of placebo controls (p = 0.18, odd ratio 2.88, CI 0.9–10).'",
+  "source_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0259860",
+  "extraction_notes": "Randomized 32/30; high dropout (~42%). Craving VAS secondary, only within-group p and figure means.",
+  "extractable": true,
+  "events_active": 10,
+  "events_sham": 4,
+  "higher_is_better": true
+ },
+ {
+  "id": "ceccanti2015",
+  "outcome": "craving VAS",
+  "design": "parallel",
+  "timepoint": "post-stimulation follow-up (end of 10 sessions)",
+  "n_active": 9,
+  "n_sham": 9,
+  "evidence_quote": "'9 in the real stimulation group, and 9 in the sham stimulation group'; 'reduction in the real stimulation group, from a mean pre-stimulation score of 26.7 ± 7.3 (X̄ ± SEM) to 17.4 ± 7.0 in the post-stimulation follow-up ... In the sham group, the pre-stimulation VAS also decreased, from 43.9 ± 12.9 to 33.3 ± 11.0 in the post-stimulation follow-up'",
+  "source_url": "https://www.brainsway.com/wp-content/uploads/2018/12/ceccanti_Canadian_Journal_of_Physiological_Pharmacology_2015_H1_Alcohol_Addiction.pdf",
+  "extraction_notes": "Reported values are SEM: active SE 7.0, sham SE 11.0; SDs here = SEM x sqrt(9) (21.0, 33.0). Large baseline imbalance (26.7 vs 43.9); change-score analysis may be preferable (no SD of change reported). All 18 completed sessions.",
+  "extractable": true,
+  "mean_active": 17.4,
+  "sd_active": 21.0,
+  "mean_sham": 33.3,
+  "sd_sham": 33.0,
+  "lower_is_better": true
+ },
+ {
+  "id": "chen2020",
+  "outcome": "% change in cue-induced craving VAS (baseline to week 2; positive = reduction)",
+  "design": "parallel",
+  "timepoint": "post-treatment (week 2)",
+  "n_active": 18,
+  "n_sham": 19,
+  "evidence_quote": "Table 2 '% △Cue-induced craving, (SD)': Group A (n=18) '50.25% (53.58%)', Group B (n=18) '65.01% (36.80%)', Group C (n=19) '70.64% (28.94%)', Group D sham (n=19) '−1.30% (55.70%)'",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S2352396420304035",
+  "extraction_notes": "4-arm trial; main fields use Group A (iTBS left DLPFC) vs sham D. Other active arms: B cTBS vmPFC n=18, 65.01 (36.80); C combined n=19, 70.64 (28.94). Do not enter multiple arms vs the same sham without splitting/combining. Values are % reduction (higher = better). ITT, all 74 analysed.",
+  "extractable": true,
+  "mean_active": 50.25,
+  "sd_active": 53.58,
+  "mean_sham": -1.3,
+  "sd_sham": 55.7,
+  "lower_is_better": false
+ },
+ {
+  "id": "harel2022",
+  "outcome": "craving PACS (secondary; primary was % heavy drinking days)",
+  "design": "parallel",
+  "timepoint": "week 3 (end of acute treatment)",
+  "n_active": 23,
+  "n_sham": 23,
+  "evidence_quote": "'significantly lower at W3 by the end of the acute treatment phase (t129 = 2.48, p = .01; mean difference = 3, Cohen's d = 0.48).' mITT: 'Active, n = 23' and 'Sham, n = 23'. Abstract: 'percentage of heavy drinking days = 2.9 ± 0.8% vs. 10.6 ± 1.9%, p = .037'",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S0006322321018266",
+  "extraction_notes": "d from mixed model (t129 uses repeated observations; do not convert t to d). Primary pHDD during follow-up: 2.9±0.8% vs 10.6±1.9% (SEM per page), F1,208 = 4.40, Cohen's d = 0.50 (per page summary). 51 randomized, 46 mITT.",
+  "extractable": true,
+  "effect_type": "d",
+  "effect_value": 0.48,
+  "direction": "favors_active"
+ },
+ {
+  "id": "mccalley2023",
+  "outcome": "craving OCDS",
+  "design": "parallel",
+  "timepoint": "1 month (first post-treatment OCDS assessment)",
+  "n_active": 7,
+  "n_sham": 7,
+  "evidence_quote": "'At the 1-month visit, estimated marginal means of OCDS score were significantly reduced in the real TBS group (2.4 ± 1.9) relative to sham (10.4 ± 1.7; t12 = −3.065; p = .01; Hedges' g = 1.65).' 'Individuals who received real TBS (1 mo: 53.3%; 2 mo: 60.0%; 3 mo: 73.3%) remained abstinent from alcohol relative to sham (1 mo: 52.9%; 2 mo: 47.1%; 3 mo: 47.1%)'",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S2667174322000271",
+  "extraction_notes": "n are RANDOMIZED (Table 1: real 26, sham 24); OCDS analysis df=12 implies only ~14 analyzed at 1 month (g=1.65 consistent with ~7/arm). ± are SE (estimated marginal means). Use g with caution re n. Abstinence % given without per-timepoint denominators.",
+  "extractable": true,
+  "effect_type": "g",
+  "effect_value": 1.65,
+  "direction": "favors_active",
+  "curation_note": "Reported Hedges' g used; t(12) implies ~14 analysed at 1 month, so variance uses n=7/7 rather than the 26/24 randomized."
+ },
+ {
+  "id": "zhao2023",
+  "outcome": "cue-induced craving (primary: change baseline to week 4)",
+  "design": "parallel",
+  "timepoint": "post-treatment (after 15 sessions)",
+  "n_active": 12,
+  "n_sham": 11,
+  "evidence_quote": "'Twenty-three subjects completed 3 weeks of treatment (10 Hz group, n=12; sham group, n=11).' 'group×time interaction across subjects with MUD (F (1, 21)=5.662, p=0.027)'",
+  "source_url": "https://gpsych.bmj.com/content/36/5/e101149",
+  "extraction_notes": "F is group x time (2 timepoints) interaction = between-group test on change scores, F(1,21). Completers only. Direction favours active (within-group Wilcoxon p=0.008 active vs 0.125 sham).",
+  "extractable": true,
+  "effect_type": "F",
+  "effect_value": 5.662,
+  "direction": "favors_active"
+ },
+ {
+  "id": "terraneo2016",
+  "extractable": false,
+  "reason": "Not sham-controlled (open-label pharmacological control arm).",
+  "extraction_notes": "NOT sham-controlled: control = pharmacological treatment, open-label. Denominators 16/16 inferred from percentages (11/16=69%, 3/16=19%); control completers were 13. reported_effect F is for craving (secondary) with 16 vs 13 completers.",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S0924977X15003612"
+ },
+ {
+  "id": "mishra2010",
+  "extractable": false,
+  "reason": "Only a treatment x time eta^2 across three timepoints; not a two-group contrast.",
+  "extraction_notes": "CAUTION: eta2 is for a treatment x time interaction across 3 timepoints (baseline, post, 1 month), so not a clean 1-df two-group contrast; type of eta2 (partial or not) unspecified. Single-blind. Abstract only.",
+  "source_url": "https://api.openalex.org/works/doi:10.1111/j.1360-0443.2009.02777.x"
+ },
+ {
+  "id": "shen2016",
+  "extractable": false,
+  "reason": "Single-session timepoint and +/- not labelled as SD or SE.",
+  "extraction_notes": "Correspondence; 20 male heroin users, 10/arm. ± not labelled SD vs SEM in readable text (assumed SD). Timepoint is after a single session; 5-day results truncated in preview. Sham post equals sham baseline exactly as printed.",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S0006322316000937"
+ },
+ {
+  "id": "li2013",
+  "extractable": false,
+  "reason": "Crossover, 16 randomized / 14 completed. Only within-condition (pre vs post under real rTMS) statistics readable; no real-vs-sham between-condition statistic in accessible text (full text paywalled).",
+  "extraction_notes": "Crossover, 16 randomized / 14 completed. Only within-condition (pre vs post under real rTMS) statistics readable; no real-vs-sham between-condition statistic in accessible text (full text paywalled).",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S0006322313000383"
+ },
+ {
+  "id": "belgers2022",
+  "extractable": false,
+  "reason": "Only multivariate MANOVA statistics in main text; per-arm means/SDs and per-timepoint comparisons are in supplementary Tables S1-S2 (not readable).",
+  "extraction_notes": "Only multivariate MANOVA statistics in main text; per-arm means/SDs and per-timepoint comparisons are in supplementary Tables S1-S2 (not readable).",
+  "source_url": "https://www.mdpi.com/2077-0383/11/4/951/htm"
+ },
+ {
+  "id": "hoven2023",
+  "extractable": false,
+  "reason": "Per-arm n not found (full text 403/captcha everywhere); total n=80. If caller accepts ~40/arm the abstinent-days means/SDs (± assumed SD, not stated) could be used. Craving means given without SDs. Post-treatment craving not readable.",
+  "extraction_notes": "Per-arm n not found (full text 403/captcha everywhere); total n=80. If caller accepts ~40/arm the abstinent-days means/SDs (± assumed SD, not stated) could be used. Craving means given without SDs. Post-treatment craving not readable.",
+  "source_url": "https://api.openalex.org/works/doi:10.1111/add.16025 ; https://pure.amsterdamumc.nl/en/publications/effects-of-10-add-on-hf-rtms-treatment-sessions-on-alcohol-use-an/"
+ },
+ {
+  "id": "addolorato2017",
+  "extractable": false,
+  "reason": "Abstract only; no numeric craving/intake values or between-group statistics accessible.",
+  "extraction_notes": "Abstract only; no numeric craving/intake values or between-group statistics accessible.",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S0924977X17301906"
+ },
+ {
+  "id": "bolloni2016",
+  "extractable": false,
+  "reason": "No craving measure; post-treatment values only shown normalized in figures; only multi-df interaction F.",
+  "extraction_notes": "No craving measure; post-treatment values only shown normalized in figures; only multi-df interaction F.",
+  "source_url": "https://www.frontiersin.org/articles/10.3389/fpsyt.2016.00133/full"
+ },
+ {
+  "id": "su2017",
+  "extractable": false,
+  "reason": "Closed access; abstract has no numbers.",
+  "extraction_notes": "Closed access; abstract has no numbers.",
+  "source_url": "https://www.sciencedirect.com/science/article/pii/S0376871617301369"
+ },
+ {
+  "id": "liang2018",
+  "extractable": false,
+  "reason": "JAMA research letter blocked by captcha; only within-group paired t available (secondary source). Not usable.",
+  "extraction_notes": "JAMA research letter blocked by captcha; only within-group paired t available (secondary source). Not usable.",
+  "source_url": "https://www.hcplive.com/view/tms-deemed-a-prospective-tool-for-male-withdrawal-symptoms"
+ },
+ {
+  "id": "kearneyramos2019",
+  "extractable": false,
+  "reason": "Crossover mechanistic study (n=19 analysed); no real-vs-sham craving statistics reported, only neural outcomes.",
+  "extraction_notes": "Crossover mechanistic study (n=19 analysed); no real-vs-sham craving statistics reported, only neural outcomes.",
+  "source_url": "https://www.frontiersin.org/articles/10.3389/fpsyt.2019.00317/full"
+ }
+]

@@ -1,0 +1,15 @@
+analysis,label,g,lo,hi,weight,method,n_active,n_sham,outcome,design,deep_tms,medial_target,theta_burst,source_url
+sud,Ceccanti 2015,0.547,-0.35,1.445,0.072,means/SD,9,9,craving VAS,parallel,1,1,0,https://www.brainsway.com/wp-content/uploads/2018/12/ceccanti_Canadian_Journal_of_Physiological_Pharmacology_2015_H1_Alcohol_Addiction.pdf
+sud,Chen 2020,0.922,0.258,1.587,0.131,means/SD,18,19,% change in cue-induced craving VAS (baseline to week 2; positive = reduction),parallel,0,1,1,https://www.sciencedirect.com/science/article/pii/S2352396420304035
+sud,Dinur-Klein 2014,1.118,0.231,2.004,0.073,events (logOR->SMD),32,31,abstinence at end of treatment (self-report confirmed by cotinine),parallel,1,1,0,https://www.brainsway.com/wp-content/uploads/2018/12/Dinur-Klein_Biol_Psychiatry_2014_H4_Smoking.pdf
+sud,Harel 2022,0.472,-0.104,1.048,0.174,reported d,23,23,craving PACS (secondary; primary was % heavy drinking days),parallel,1,1,0,https://www.sciencedirect.com/science/article/pii/S0006322321018266
+sud,Lolli 2021,0.582,-0.137,1.302,0.112,events (logOR->SMD),30,27,cocaine urine negativization (primary),parallel,0,0,0,https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0259860
+sud,McCalley 2023,1.65,0.437,2.863,0.039,reported g,7,7,craving OCDS,parallel,0,1,1,https://www.sciencedirect.com/science/article/pii/S2667174322000271
+sud,Zangen 2021,0.482,0.055,0.909,0.317,events (logOR->SMD),123,139,4-week continuous quit rate until week 18 (cotinine-verified),parallel,1,1,0,https://www.accessdata.fda.gov/cdrh_docs/pdf20/K200957.pdf ; https://api.openalex.org/works/doi:10.1002/wps.20905 ; https://www.brainsway.com/wp-content/uploads/2021/09/World-Psychiatry_October-2021.pdf
+sud,Zhao 2023,0.957,0.122,1.793,0.083,"F(1,df)",12,11,cue-induced craving (primary: change baseline to week 4),parallel,1,1,0,https://gpsych.bmj.com/content/36/5/e101149
+ptsd,Boggio 2010,3.08,1.784,4.376,0.144,reported g,10,10,PTSD Checklist (study primary: 'The main outcome in this study was PTSD symptom changes as assessed with the PTSD Checklist'),parallel,0,0,0,https://www.redalyc.org/pdf/3110/311044979007.pdf
+ptsd,Cohen 2004,1.5,0.362,2.638,0.155,reported g,10,6,study-defined primary PTSD outcome at endpoint (PCL/TOP-8; scale used by Trevizol not stated),parallel,0,0,0,https://www.redalyc.org/pdf/3110/311044979007.pdf
+ptsd,Isserles 2013,0.486,-0.408,1.38,0.171,means/SD,9,9,CAPS total,parallel,1,1,0,https://www.sciencedirect.com/science/article/pii/S1935861X12001477
+ptsd,Osuch 2009,-0.26,-1.188,0.668,0.169,reported g,9,9,study-defined primary PTSD outcome (scale not stated by Trevizol),crossover,0,0,0,https://www.redalyc.org/pdf/3110/311044979007.pdf
+ptsd,Philip 2019,0.118,-0.428,0.664,0.192,reported d,25,25,CAPS-5 (primary symptom outcome),parallel,0,0,1,https://psychiatryonline.org/doi/10.1176/appi.ajp.2019.18101160
+ptsd,Watts 2012,0.74,-0.166,1.646,0.17,reported g,10,10,core PTSD symptoms (study primary; CAPS/PCL - scale used by Trevizol not stated),parallel,0,0,0,https://www.redalyc.org/pdf/3110/311044979007.pdf

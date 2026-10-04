@@ -8,9 +8,9 @@ from pathlib import Path
 import numpy as np
 from sklearn.metrics import roc_auc_score
 
-from neuromod.data.synthetic import BASELINE_FEATURES
+from neuromod.data.synthetic import BASELINE_FEATURES, simulate_cohort
 from neuromod.explain.shap_analysis import explain_tree_model, oracle_shap, recovery_metrics
-from neuromod.meta.effects import simulate_cohort, smd_to_log_odds
+from neuromod.meta.effects import smd_to_log_odds
 from neuromod.models.clinical_eval import (
     conformal_report,
     dca_summary,

@@ -1,0 +1,314 @@
+{
+  "analyses": {
+    "sud": {
+      "title": "Substance use disorders: craving / use (active vs sham)",
+      "pooled": {
+        "k": 8,
+        "method": "REML + Hartung-Knapp",
+        "g": 0.6854,
+        "se": 0.1226,
+        "ci95": [
+          0.3955,
+          0.9754
+        ],
+        "pi95": [
+          0.3854,
+          0.9855
+        ],
+        "p": 0.000824,
+        "tau2": 0.0,
+        "I2": 0.0,
+        "Q": 5.811,
+        "Q_p": 0.562
+      },
+      "pooled_dl_no_hk": {
+        "k": 8,
+        "method": "DL",
+        "g": 0.6854,
+        "se": 0.1226,
+        "ci95": [
+          0.4451,
+          0.9257
+        ],
+        "pi95": [
+          0.3854,
+          0.9855
+        ],
+        "p": 2.27e-08,
+        "tau2": 0.0,
+        "I2": 0.0,
+        "Q": 5.811,
+        "Q_p": 0.562
+      },
+      "egger": {
+        "intercept": 2.2596069918942474,
+        "p": 0.019528846867537055,
+        "k": 8
+      },
+      "leave_one_out": [
+        {
+          "omitted": "Ceccanti 2015",
+          "g": 0.6960714514469519,
+          "ci95": [
+            0.38468499175182225,
+            1.0074579111420816
+          ],
+          "I2": 0.0
+        },
+        {
+          "omitted": "Chen 2020",
+          "g": 0.6498124045500917,
+          "ci95": [
+            0.328027836715707,
+            0.9715969723844764
+          ],
+          "I2": 0.0
+        },
+        {
+          "omitted": "Dinur-Klein 2014",
+          "g": 0.6511298005683905,
+          "ci95": [
+            0.3394306094882392,
+            0.9628289916485419
+          ],
+          "I2": 0.0
+        },
+        {
+          "omitted": "Harel 2022",
+          "g": 0.7308293533151171,
+          "ci95": [
+            0.4002061284570997,
+            1.0614525781731345
+          ],
+          "I2": 0.0
+        },
+        {
+          "omitted": "Lolli 2021",
+          "g": 0.6983828474296184,
+          "ci95": [
+            0.38008128924293033,
+            1.0166844056163065
+          ],
+          "I2": 0.0
+        },
+        {
+          "omitted": "McCalley 2023",
+          "g": 0.6460124882005038,
+          "ci95": [
+            0.33991678936269004,
+            0.9521081870383177
+          ],
+          "I2": 0.0
+        },
+        {
+          "omitted": "Zangen 2021",
+          "g": 0.779887593243857,
+          "ci95": [
+            0.4169141859621741,
+            1.14286100052554
+          ],
+          "I2": 0.0
+        },
+        {
+          "omitted": "Zhao 2023",
+          "g": 0.6609134992358406,
+          "ci95": [
+            0.3476541913261154,
+            0.9741728071455659
+          ],
+          "I2": 0.0
+        }
+      ],
+      "n_participants": 520,
+      "excluded": [
+        {
+          "id": "terraneo2016",
+          "reason": "Not sham-controlled (open-label pharmacological control arm)."
+        },
+        {
+          "id": "mishra2010",
+          "reason": "Only a treatment x time eta^2 across three timepoints; not a two-group contrast."
+        },
+        {
+          "id": "shen2016",
+          "reason": "Single-session timepoint and +/- not labelled as SD or SE."
+        },
+        {
+          "id": "li2013",
+          "reason": "Crossover, 16 randomized / 14 completed. Only within-condition (pre vs post under real rTMS) statistics readable; no real-vs-sham between-condition statistic in accessible text (full text paywalled)."
+        },
+        {
+          "id": "belgers2022",
+          "reason": "Only multivariate MANOVA statistics in main text; per-arm means/SDs and per-timepoint comparisons are in supplementary Tables S1-S2 (not readable)."
+        },
+        {
+          "id": "hoven2023",
+          "reason": "Per-arm n not found (full text 403/captcha everywhere); total n=80. If caller accepts ~40/arm the abstinent-days means/SDs (\u00b1 assumed SD, not stated) could be used. Craving means given without SDs. Post-treatment craving not readable."
+        },
+        {
+          "id": "addolorato2017",
+          "reason": "Abstract only; no numeric craving/intake values or between-group statistics accessible."
+        },
+        {
+          "id": "bolloni2016",
+          "reason": "No craving measure; post-treatment values only shown normalized in figures; only multi-df interaction F."
+        },
+        {
+          "id": "su2017",
+          "reason": "Closed access; abstract has no numbers."
+        },
+        {
+          "id": "liang2018",
+          "reason": "JAMA research letter blocked by captcha; only within-group paired t available (secondary source). Not usable."
+        },
+        {
+          "id": "kearneyramos2019",
+          "reason": "Crossover mechanistic study (n=19 analysed); no real-vs-sham craving statistics reported, only neural outcomes."
+        }
+      ],
+      "meta_regression": {
+        "tau2_residual": 0.0,
+        "coefficients": {
+          "intercept": {
+            "beta": 0.5822323544011037,
+            "se": 0.36715286589219126,
+            "p": 0.11278385773517532
+          },
+          "deep_tms": {
+            "beta": 0.023422073714181868,
+            "se": 0.39461920667717065,
+            "p": 0.9526704633043792
+          },
+          "theta_burst": {
+            "beta": 0.508280027312175,
+            "se": 0.47252587671078194,
+            "p": 0.28207665129034165
+          }
+        },
+        "k": 8
+      }
+    },
+    "ptsd": {
+      "title": "PTSD symptom severity (active vs sham)",
+      "pooled": {
+        "k": 6,
+        "method": "REML + Hartung-Knapp",
+        "g": 0.8625,
+        "se": 0.4723,
+        "ci95": [
+          -0.3516,
+          2.0767
+        ],
+        "pi95": [
+          -2.2108,
+          3.9359
+        ],
+        "p": 0.127,
+        "tau2": 1.0022,
+        "I2": 0.781,
+        "Q": 22.839,
+        "Q_p": 0.000362
+      },
+      "pooled_dl_no_hk": {
+        "k": 6,
+        "method": "DL",
+        "g": 0.8412,
+        "se": 0.4013,
+        "ci95": [
+          0.0546,
+          1.6278
+        ],
+        "pi95": [
+          -1.7791,
+          3.4615
+        ],
+        "p": 0.0361,
+        "tau2": 0.7296,
+        "I2": 0.781,
+        "Q": 22.839,
+        "Q_p": 0.000362
+      },
+      "egger": {
+        "intercept": 5.00451414712699,
+        "p": 0.09576017452836019,
+        "k": 6
+      },
+      "leave_one_out": [
+        {
+          "omitted": "Boggio 2010",
+          "g": 0.4224387129763339,
+          "ci95": [
+            -0.3247072515826143,
+            1.169584677535282
+          ],
+          "I2": 0.4348008917379659
+        },
+        {
+          "omitted": "Cohen 2004",
+          "g": 0.7572201518025459,
+          "ci95": [
+            -0.7954694108637639,
+            2.309909714468856
+          ],
+          "I2": 0.7988921809646612
+        },
+        {
+          "omitted": "Isserles 2013",
+          "g": 0.9596224245051109,
+          "ci95": [
+            -0.6411497862386158,
+            2.5603946352488376
+          ],
+          "I2": 0.8246795801799321
+        },
+        {
+          "omitted": "Osuch 2009",
+          "g": 1.0885855933137492,
+          "ci95": [
+            -0.32221959850946114,
+            2.4993907851369594
+          ],
+          "I2": 0.79418412222192
+        },
+        {
+          "omitted": "Philip 2019",
+          "g": 1.0473566442635176,
+          "ci95": [
+            -0.4897986745949101,
+            2.5845119631219453
+          ],
+          "I2": 0.7874413260606922
+        },
+        {
+          "omitted": "Watts 2012",
+          "g": 0.9090382840210793,
+          "ci95": [
+            -0.7121855759880604,
+            2.5302621440302193
+          ],
+          "I2": 0.8233348296196644
+        }
+      ],
+      "n_participants": 142,
+      "excluded": [
+        {
+          "id": "kozel2018",
+          "reason": "Only abstract accessible (ScienceDirect full text not readable). Abstract gives only a bounded mixed-model t (inequality, longitudinal, df>=325), not a between-group end-of-treatment t/F or means/SDs. 12-15 rTMS+CPT sessions. Not in Trevizol 2016."
+        },
+        {
+          "id": "kozel2019",
+          "reason": "Active-vs-active (1 Hz vs 10 Hz); no sham arm -> not eligible for active-vs-sham pooling."
+        },
+        {
+          "id": "nam2013",
+          "reason": "Only F for group x time interaction across 4 timepoints (numerator df >1, df not reported) - not an F(1,df) between-group test; CAPS means only in figure."
+        },
+        {
+          "id": "ahmadizadeh2018",
+          "reason": "Abstract only (65 veterans, 3 arms); no per-arm n, means/SDs, or test statistics accessible. 20 Hz from VA CTU summary (ptsd.va.gov ctu_v12n4.pdf)."
+        }
+      ]
+    }
+  },
+  "note": "Effects are Hedges' g (positive favors active rTMS). Random effects, REML tau^2, Hartung-Knapp 95% CIs. Binary outcomes converted from log odds ratios (Chinn 2000). Crossover trials are analysed as parallel groups (conservative). Every extracted number is quoted with its source in data/meta."
+}
