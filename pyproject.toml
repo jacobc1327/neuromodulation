@@ -28,7 +28,8 @@ dependencies = [
 [project.optional-dependencies]
 llm = ["langchain>=0.3"]  # plus the chat-model package for your provider
 embeddings = ["sentence-transformers>=3.0", "langchain-huggingface>=0.1"]
-dev = ["pytest>=8", "ruff>=0.5"]
+app = ["streamlit>=1.38"]
+dev = ["pytest>=8", "ruff>=0.5", "streamlit>=1.38"]
 
 [project.scripts]
 neuromod = "neuromod.cli:main"
