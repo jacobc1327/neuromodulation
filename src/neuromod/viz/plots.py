@@ -235,3 +235,83 @@ def corpus_overview(studies: pd.DataFrame, path: Path | str):
     for i, v in enumerate(by_type.values):
         a2.text(v, i, f" {v}", va="center", color=INK2, fontsize=9)
     _save(fig, path)
+
+
+def decision_curve_plot(curve: pd.DataFrame, path: Path, title: str):
+    _style()
+    fig, ax = plt.subplots(figsize=(7, 4.4))
+    ax.plot(curve.threshold, curve.model, color=BLUE, label="Use XGBoost model")
+    ax.plot(curve.threshold, curve.treat_all, color=ORANGE, label="Treat all")
+    ax.plot(curve.threshold, curve.treat_none, color=MUTED, ls="--", label="Treat none")
+    top = max(curve.model.max(), curve.treat_all.max())
+    ax.set(xlabel="Threshold probability of response to start a course",
+           ylabel="Net benefit", ylim=(-0.05, top + 0.05), xlim=(curve.threshold.min(),
+                                                                 curve.threshold.max()))
+    ax.set_title(title)
+    ax.legend(loc="upper right")
+    _save(fig, path)
+
+
+def subgroup_auroc_plot(audit: pd.DataFrame, overall: float, path: Path):
+    _style()
+    a = audit.iloc[::-1].reset_index(drop=True)
+    fig, ax = plt.subplots(figsize=(7.5, 0.38 * len(a) + 1.3))
+    ax.axvline(overall, color=MUTED, ls="--", lw=1.2, label=f"Overall AUROC {overall:.3f}")
+    ax.scatter(a.auroc, range(len(a)), color=BLUE, s=60, zorder=3,
+               edgecolors=SURFACE, linewidths=1.5)
+    for i, r in a.iterrows():
+        ax.text(r.auroc, i, f"  {r.auroc:.2f} (n={r.n})", va="center", color=INK2, fontsize=8.5)
+    ax.set_yticks(range(len(a)), [f"{r.family}: {r.group}" for r in a.itertuples()])
+    ax.grid(axis="y", visible=False)
+    ax.set_xlim(0.45, 0.95)
+    ax.set_xlabel("AUROC within subgroup (held-out)")
+    ax.set_title("Subgroup audit: does the model work equally well for everyone?")
+    ax.legend(loc="lower left")
+    _save(fig, path)
+
+
+def forest_plot(rows: pd.DataFrame, pooled: dict, path: Path, title: str,
+                xlabel: str = "Hedges' g (positive favors active rTMS)"):
+    """rows: label, g, lo, hi, weight. pooled: g, ci95, pi95, k, I2, tau2."""
+    _style()
+    r = rows.reset_index(drop=True)
+    k = len(r)
+    fig, ax = plt.subplots(figsize=(8.6, 0.36 * k + 2.0))
+    y = np.arange(k)[::-1] + 2
+    ax.axvline(0, color=INK2, lw=0.8)
+    for yi, row in zip(y, r.itertuples()):
+        ax.plot([row.lo, row.hi], [yi, yi], color=INK2, lw=1.2)
+        size = 30 + 400 * row.weight
+        ax.scatter(row.g, yi, s=size, marker="s", color=BLUE, zorder=3)
+        ax.text(1.02, yi, f"{row.g:5.2f} [{row.lo:5.2f}, {row.hi:5.2f}]", transform=ax.get_yaxis_transform(),
+                va="center", fontsize=8.5, color=INK2, family="monospace")
+    g, (lo, hi), (plo, phi) = pooled["g"], pooled["ci95"], pooled["pi95"]
+    ax.plot([plo, phi], [0.6, 0.6], color=ORANGE, lw=2.2, solid_capstyle="round",
+            label="95% prediction interval")
+    ax.fill([lo, g, hi, g], [0.6, 0.95, 0.6, 0.25], color=INK, zorder=4,
+            label="Pooled effect (95% CI)")
+    ax.text(1.02, 0.6, f"{g:5.2f} [{lo:5.2f}, {hi:5.2f}]", transform=ax.get_yaxis_transform(),
+            va="center", fontsize=8.5, color=INK, family="monospace", weight="bold")
+    ax.set_yticks(list(y) + [0.6], list(r.label) + [
+        f"Random effects (k={pooled['k']}, I²={pooled['I2'] * 100:.0f}%)"])
+    ax.grid(axis="y", visible=False)
+    ax.set_xlabel(xlabel)
+    ax.set_title(title)
+    ax.legend(loc="lower left", fontsize=8.5, bbox_to_anchor=(0, -0.02 - 1.2 / (k + 3)))
+    _save(fig, path)
+
+
+def funnel_plot(g: np.ndarray, se: np.ndarray, pooled_g: float, path: Path, egger_p: float):
+    _style()
+    fig, ax = plt.subplots(figsize=(5.8, 4.4))
+    smax = float(np.max(se)) * 1.1
+    s = np.linspace(0, smax, 50)
+    ax.fill_betweenx(s, pooled_g - 1.96 * s, pooled_g + 1.96 * s, color=GRID, alpha=0.6,
+                     label="95% pseudo-CI")
+    ax.axvline(pooled_g, color=INK2, lw=1)
+    ax.scatter(g, se, color=BLUE, s=40, zorder=3, edgecolors=SURFACE, linewidths=1.2)
+    ax.invert_yaxis()
+    ax.set(xlabel="Hedges' g", ylabel="Standard error")
+    ax.set_title(f"Funnel plot (Egger p = {egger_p:.2f})")
+    ax.legend(loc="lower right", fontsize=8.5)
+    _save(fig, path)

@@ -124,6 +124,156 @@
       "n_features": 22
     }
   },
+  "clinical_eval": {
+    "decision_curve_active_arm": {
+      "threshold_range": [
+        0.15,
+        0.45
+      ],
+      "mean_net_benefit_model": 0.139496158943022,
+      "mean_net_benefit_best_default": 0.08184315492045642,
+      "share_of_range_model_beats_defaults": 1.0
+    },
+    "conformal_alpha_0.1": {
+      "marginal": {
+        "target_coverage": 0.9,
+        "coverage": 0.9358490566037736,
+        "coverage_responders": 0.782051282051282,
+        "coverage_non_responders": 1.0,
+        "mean_set_size": 1.528301886792453,
+        "share_singleton": 0.4716981132075472,
+        "label_counts": {
+          "likely non-responder": 125,
+          "uncertain": 140
+        }
+      },
+      "class_conditional": {
+        "target_coverage": 0.9,
+        "coverage": 0.909433962264151,
+        "coverage_responders": 0.9358974358974359,
+        "coverage_non_responders": 0.8983957219251337,
+        "mean_set_size": 1.6452830188679246,
+        "share_singleton": 0.35471698113207545,
+        "label_counts": {
+          "likely non-responder": 49,
+          "likely responder": 45,
+          "uncertain": 171
+        }
+      }
+    },
+    "subgroup_audit": [
+      {
+        "family": "Sex",
+        "group": "Female",
+        "n": 65,
+        "prevalence": 0.3231,
+        "auroc": 0.7132,
+        "calibration_in_the_large": -0.0304,
+        "tpr": 0.4762,
+        "fpr": 0.2273
+      },
+      {
+        "family": "Sex",
+        "group": "Male",
+        "n": 435,
+        "prevalence": 0.2805,
+        "auroc": 0.71,
+        "calibration_in_the_large": 0.0065,
+        "tpr": 0.459,
+        "fpr": 0.2141
+      },
+      {
+        "family": "TBI history",
+        "group": "No TBI",
+        "n": 339,
+        "prevalence": 0.3127,
+        "auroc": 0.7067,
+        "calibration_in_the_large": -0.0031,
+        "tpr": 0.5566,
+        "fpr": 0.2876
+      },
+      {
+        "family": "TBI history",
+        "group": "TBI",
+        "n": 161,
+        "prevalence": 0.2298,
+        "auroc": 0.7171,
+        "calibration_in_the_large": 0.0117,
+        "tpr": 0.1892,
+        "fpr": 0.0806
+      },
+      {
+        "family": "Housing",
+        "group": "Stable",
+        "n": 448,
+        "prevalence": 0.2946,
+        "auroc": 0.6973,
+        "calibration_in_the_large": -0.0038,
+        "tpr": 0.4545,
+        "fpr": 0.2215
+      },
+      {
+        "family": "Housing",
+        "group": "Unstable",
+        "n": 52,
+        "prevalence": 0.2115,
+        "auroc": 0.8293,
+        "calibration_in_the_large": 0.0495,
+        "tpr": 0.5455,
+        "fpr": 0.1707
+      },
+      {
+        "family": "Primary substance",
+        "group": "alcohol",
+        "n": 214,
+        "prevalence": 0.3224,
+        "auroc": 0.7024,
+        "calibration_in_the_large": -0.0441,
+        "tpr": 0.4058,
+        "fpr": 0.1724
+      },
+      {
+        "family": "Primary substance",
+        "group": "cocaine",
+        "n": 61,
+        "prevalence": 0.2295,
+        "auroc": 0.7447,
+        "calibration_in_the_large": 0.0465,
+        "tpr": 0.5714,
+        "fpr": 0.234
+      },
+      {
+        "family": "Primary substance",
+        "group": "methamphetamine",
+        "n": 58,
+        "prevalence": 0.1897,
+        "auroc": 0.7079,
+        "calibration_in_the_large": 0.0931,
+        "tpr": 0.5455,
+        "fpr": 0.234
+      },
+      {
+        "family": "Primary substance",
+        "group": "nicotine",
+        "n": 102,
+        "prevalence": 0.3137,
+        "auroc": 0.7152,
+        "calibration_in_the_large": -0.0011,
+        "tpr": 0.5,
+        "fpr": 0.2857
+      },
+      {
+        "family": "Primary substance",
+        "group": "opioid",
+        "n": 65,
+        "prevalence": 0.2615,
+        "auroc": 0.7255,
+        "calibration_in_the_large": 0.0332,
+        "tpr": 0.4706,
+        "fpr": 0.2083
+      }
+    ]
+  },
   "hte": {
     "cate_pearson_r": 0.4168417555552437,
     "cate_spearman_rho": 0.4071974367897471,
