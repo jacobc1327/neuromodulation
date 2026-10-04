@@ -3,78 +3,86 @@
   "cohort": {
     "n": 2000,
     "seed": 7,
-    "response_rate_active": 0.3488372093023256,
+    "effect_calibration": {
+      "source": "sud meta-analysis",
+      "pooled_g": 0.6854,
+      "k": 8,
+      "log_or": 1.243178084246133
+    },
+    "active_coef": 1.869345114703897,
+    "marginal_log_or_active_vs_sham": 1.2431780842461337,
+    "response_rate_active": 0.544994944388271,
     "response_rate_sham": 0.22354104846686448,
-    "relapse_rate_52wk": 0.679,
-    "sustained_cessation_rate": 0.164
+    "relapse_rate_52wk": 0.6545,
+    "sustained_cessation_rate": 0.1795
   },
   "response_model": {
     "xgboost": {
-      "auroc": 0.7111320052496523,
+      "auroc": 0.7550619292092378,
       "auroc_95ci": [
-        0.6625702238844494,
-        0.7564021292397871
+        0.7112573578941235,
+        0.7962712354284853
       ],
-      "auprc": 0.480272446442268,
-      "brier": 0.18225890398025513,
-      "ece": 0.03487427291973922,
-      "prevalence": 0.286
+      "auprc": 0.658752424731614,
+      "brier": 0.1915450394153595,
+      "ece": 0.044447267667428084,
+      "prevalence": 0.382
     },
     "logistic_regression": {
-      "auroc": 0.6841785665315077,
+      "auroc": 0.7663294871143191,
       "auroc_95ci": [
-        0.6357470877886789,
-        0.7309779831610315
+        0.7237084285745385,
+        0.805915690880496
       ],
-      "auprc": 0.4319828654901496,
-      "brier": 0.19000004258349573,
-      "ece": 0.05862809356387531,
-      "prevalence": 0.286
+      "auprc": 0.6618015962541118,
+      "brier": 0.18818773743153422,
+      "ece": 0.04598042774083748,
+      "prevalence": 0.382
     },
-    "cv_auroc_xgboost": 0.7170705345385274,
+    "cv_auroc_xgboost": 0.7772659700373585,
     "n_train": 1500,
     "n_test": 500,
-    "oracle_auroc": 0.7145403615991851,
-    "xgboost_pct_of_oracle_auroc": 0.9841132161606938,
+    "oracle_auroc": 0.7863823514461444,
+    "xgboost_pct_of_oracle_auroc": 0.8906342444681106,
     "best_params": {
-      "colsample_bytree": 0.5747431516621152,
-      "learning_rate": 0.01064814580295854,
-      "max_depth": 3,
-      "min_child_weight": 9,
-      "n_estimators": 326,
-      "reg_lambda": 1.3599809006000376,
-      "subsample": 0.6860831747393525
+      "colsample_bytree": 0.976995703030857,
+      "learning_rate": 0.015163913104048713,
+      "max_depth": 2,
+      "min_child_weight": 5,
+      "n_estimators": 449,
+      "reg_lambda": 0.2952846113900471,
+      "subsample": 0.9859883998144507
     }
   },
   "relapse_models": {
     "CoxPH (scikit-survival)": {
-      "harrell_c": 0.6784359981673377,
-      "uno_c": 0.6774179980063091,
-      "mean_time_dependent_auc": 0.7426555350233642,
-      "integrated_brier_score": 0.18738427736596386
+      "harrell_c": 0.6788269455282038,
+      "uno_c": 0.6751105186008809,
+      "mean_time_dependent_auc": 0.7336658328529473,
+      "integrated_brier_score": 0.18753957134398538
     },
     "Random Survival Forest": {
-      "harrell_c": 0.6627511381028045,
-      "uno_c": 0.6629742740431821,
-      "mean_time_dependent_auc": 0.7221722629356399,
-      "integrated_brier_score": 0.19737909281490226
+      "harrell_c": 0.6812816188870152,
+      "uno_c": 0.6776205897695072,
+      "mean_time_dependent_auc": 0.735170156859905,
+      "integrated_brier_score": 0.19438785128939243
     },
     "Gradient-Boosted Cox (scikit-survival)": {
-      "harrell_c": 0.6678786933507501,
-      "uno_c": 0.6691270564881285,
-      "mean_time_dependent_auc": 0.7292118517616474,
-      "integrated_brier_score": 0.19139039070020816
+      "harrell_c": 0.6753943941646627,
+      "uno_c": 0.6715671967930795,
+      "mean_time_dependent_auc": 0.7284950117734714,
+      "integrated_brier_score": 0.1899183089232033
     },
     "XGBoost Cox": {
-      "harrell_c": 0.6678689451468567,
-      "uno_c": 0.6689747314048559,
-      "mean_time_dependent_auc": 0.7298247609099973,
-      "integrated_brier_score": 0.19255980334993303
+      "harrell_c": 0.6653661554426894,
+      "uno_c": 0.6621422162383872,
+      "mean_time_dependent_auc": 0.7179768029104806,
+      "integrated_brier_score": 0.19492526082107284
     },
     "_meta": {
       "n_train": 1500,
       "n_test": 500,
-      "event_rate": 0.679,
+      "event_rate": 0.6545,
       "eval_times_weeks": [
         4.0,
         8.0,
@@ -87,39 +95,39 @@
   },
   "shap": {
     "response_top_predictors": {
-      "pcl5": 0.24860000610351562,
-      "sessions_completed": 0.1808999925851822,
-      "active": 0.1762000024318695,
-      "tbi_history": 0.17329999804496765,
-      "social_support": 0.1527000069618225,
-      "psqi": 0.07810000330209732,
-      "target": 0.07779999822378159,
-      "phq9": 0.07159999758005142,
-      "bmi": 0.05770000070333481,
-      "rmt": 0.045499999076128006
+      "active": 0.6686999797821045,
+      "pcl5": 0.3582000136375427,
+      "social_support": 0.23999999463558197,
+      "sessions_completed": 0.19189999997615814,
+      "tbi_history": 0.10369999706745148,
+      "baseline_craving": 0.09759999811649323,
+      "substance": 0.09759999811649323,
+      "phq9": 0.07289999723434448,
+      "psqi": 0.0560000017285347,
+      "bmi": 0.047200001776218414
     },
     "relapse_top_predictors": {
-      "pcl5": 0.29170000553131104,
-      "social_support": 0.23880000412464142,
-      "psqi": 0.15809999406337738,
-      "tbi_history": 0.13330000638961792,
-      "days_used_past30": 0.1331000030040741,
-      "on_mat": 0.12020000070333481,
-      "housing_unstable": 0.11410000175237656,
-      "rmt": 0.09229999780654907,
-      "sessions_completed": 0.09200000017881393,
-      "prior_tx_attempts": 0.0771000012755394
+      "pcl5": 0.325300008058548,
+      "social_support": 0.2362000048160553,
+      "psqi": 0.1670999974012375,
+      "housing_unstable": 0.1395999938249588,
+      "active": 0.13930000364780426,
+      "prior_tx_attempts": 0.13920000195503235,
+      "on_mat": 0.13609999418258667,
+      "days_used_past30": 0.1316000074148178,
+      "tbi_history": 0.11680000275373459,
+      "sessions_completed": 0.07739999890327454
     },
     "ground_truth_recovery": {
-      "spearman_rho_importance": 0.7269228345779515,
-      "top8_overlap": 0.75,
+      "spearman_rho_importance": 0.707839003378373,
+      "top8_overlap": 0.625,
       "noise_feature_ranks": {
-        "rmt": 10,
-        "bmi": 9,
-        "education_years": 18,
-        "on_ssri": 19,
-        "combat_deployments": 20,
-        "female": 22
+        "rmt": 17,
+        "bmi": 10,
+        "education_years": 14,
+        "on_ssri": 21,
+        "combat_deployments": 19,
+        "female": 20
       },
       "n_features": 22
     }
@@ -130,34 +138,35 @@
         0.15,
         0.45
       ],
-      "mean_net_benefit_model": 0.139496158943022,
-      "mean_net_benefit_best_default": 0.08184315492045642,
-      "share_of_range_model_beats_defaults": 1.0
+      "mean_net_benefit_model": 0.3433440193045347,
+      "mean_net_benefit_best_default": 0.31035633093606146,
+      "share_of_range_model_beats_defaults": 0.8666666666666667
     },
     "conformal_alpha_0.1": {
       "marginal": {
         "target_coverage": 0.9,
-        "coverage": 0.9358490566037736,
-        "coverage_responders": 0.782051282051282,
-        "coverage_non_responders": 1.0,
-        "mean_set_size": 1.528301886792453,
-        "share_singleton": 0.4716981132075472,
+        "coverage": 0.8943396226415095,
+        "coverage_responders": 0.7663551401869159,
+        "coverage_non_responders": 0.9810126582278481,
+        "mean_set_size": 1.4188679245283018,
+        "share_singleton": 0.5811320754716981,
         "label_counts": {
-          "likely non-responder": 125,
-          "uncertain": 140
+          "likely non-responder": 130,
+          "likely responder": 24,
+          "uncertain": 111
         }
       },
       "class_conditional": {
         "target_coverage": 0.9,
-        "coverage": 0.909433962264151,
-        "coverage_responders": 0.9358974358974359,
-        "coverage_non_responders": 0.8983957219251337,
-        "mean_set_size": 1.6452830188679246,
-        "share_singleton": 0.35471698113207545,
+        "coverage": 0.8641509433962264,
+        "coverage_responders": 0.822429906542056,
+        "coverage_non_responders": 0.8924050632911392,
+        "mean_set_size": 1.4452830188679244,
+        "share_singleton": 0.5547169811320755,
         "label_counts": {
-          "likely non-responder": 49,
-          "likely responder": 45,
-          "uncertain": 171
+          "likely non-responder": 87,
+          "likely responder": 60,
+          "uncertain": 118
         }
       }
     },
@@ -165,188 +174,188 @@
       {
         "family": "Sex",
         "group": "Female",
-        "n": 65,
-        "prevalence": 0.3231,
-        "auroc": 0.7132,
-        "calibration_in_the_large": -0.0304,
-        "tpr": 0.4762,
-        "fpr": 0.2273
+        "n": 56,
+        "prevalence": 0.4107,
+        "auroc": 0.7958,
+        "calibration_in_the_large": -0.0237,
+        "tpr": 0.6522,
+        "fpr": 0.1818
       },
       {
         "family": "Sex",
         "group": "Male",
-        "n": 435,
-        "prevalence": 0.2805,
-        "auroc": 0.71,
-        "calibration_in_the_large": 0.0065,
-        "tpr": 0.459,
-        "fpr": 0.2141
+        "n": 444,
+        "prevalence": 0.3784,
+        "auroc": 0.7489,
+        "calibration_in_the_large": -0.0047,
+        "tpr": 0.6071,
+        "fpr": 0.2464
       },
       {
         "family": "TBI history",
         "group": "No TBI",
-        "n": 339,
-        "prevalence": 0.3127,
-        "auroc": 0.7067,
-        "calibration_in_the_large": -0.0031,
-        "tpr": 0.5566,
-        "fpr": 0.2876
+        "n": 320,
+        "prevalence": 0.4562,
+        "auroc": 0.7412,
+        "calibration_in_the_large": -0.0613,
+        "tpr": 0.589,
+        "fpr": 0.2356
       },
       {
         "family": "TBI history",
         "group": "TBI",
-        "n": 161,
-        "prevalence": 0.2298,
-        "auroc": 0.7171,
-        "calibration_in_the_large": 0.0117,
-        "tpr": 0.1892,
-        "fpr": 0.0806
+        "n": 180,
+        "prevalence": 0.25,
+        "auroc": 0.774,
+        "calibration_in_the_large": 0.0899,
+        "tpr": 0.6889,
+        "fpr": 0.2444
       },
       {
         "family": "Housing",
         "group": "Stable",
-        "n": 448,
-        "prevalence": 0.2946,
-        "auroc": 0.6973,
-        "calibration_in_the_large": -0.0038,
-        "tpr": 0.4545,
-        "fpr": 0.2215
+        "n": 436,
+        "prevalence": 0.3945,
+        "auroc": 0.7672,
+        "calibration_in_the_large": -0.0212,
+        "tpr": 0.6047,
+        "fpr": 0.2273
       },
       {
         "family": "Housing",
         "group": "Unstable",
-        "n": 52,
-        "prevalence": 0.2115,
-        "auroc": 0.8293,
-        "calibration_in_the_large": 0.0495,
-        "tpr": 0.5455,
-        "fpr": 0.1707
+        "n": 64,
+        "prevalence": 0.2969,
+        "auroc": 0.6912,
+        "calibration_in_the_large": 0.0909,
+        "tpr": 0.6842,
+        "fpr": 0.3111
       },
       {
         "family": "Primary substance",
         "group": "alcohol",
         "n": 214,
-        "prevalence": 0.3224,
-        "auroc": 0.7024,
-        "calibration_in_the_large": -0.0441,
-        "tpr": 0.4058,
-        "fpr": 0.1724
+        "prevalence": 0.4206,
+        "auroc": 0.797,
+        "calibration_in_the_large": -0.0657,
+        "tpr": 0.5889,
+        "fpr": 0.1532
       },
       {
         "family": "Primary substance",
         "group": "cocaine",
-        "n": 61,
-        "prevalence": 0.2295,
-        "auroc": 0.7447,
-        "calibration_in_the_large": 0.0465,
-        "tpr": 0.5714,
-        "fpr": 0.234
+        "n": 56,
+        "prevalence": 0.4107,
+        "auroc": 0.8182,
+        "calibration_in_the_large": -0.0185,
+        "tpr": 0.6957,
+        "fpr": 0.2424
       },
       {
         "family": "Primary substance",
         "group": "methamphetamine",
-        "n": 58,
-        "prevalence": 0.1897,
-        "auroc": 0.7079,
-        "calibration_in_the_large": 0.0931,
-        "tpr": 0.5455,
-        "fpr": 0.234
+        "n": 57,
+        "prevalence": 0.3333,
+        "auroc": 0.7881,
+        "calibration_in_the_large": 0.0377,
+        "tpr": 0.6842,
+        "fpr": 0.2368
       },
       {
         "family": "Primary substance",
         "group": "nicotine",
-        "n": 102,
-        "prevalence": 0.3137,
-        "auroc": 0.7152,
-        "calibration_in_the_large": -0.0011,
-        "tpr": 0.5,
-        "fpr": 0.2857
+        "n": 106,
+        "prevalence": 0.3302,
+        "auroc": 0.6644,
+        "calibration_in_the_large": 0.1028,
+        "tpr": 0.6286,
+        "fpr": 0.3803
       },
       {
         "family": "Primary substance",
         "group": "opioid",
-        "n": 65,
-        "prevalence": 0.2615,
-        "auroc": 0.7255,
-        "calibration_in_the_large": 0.0332,
-        "tpr": 0.4706,
-        "fpr": 0.2083
+        "n": 67,
+        "prevalence": 0.3582,
+        "auroc": 0.7326,
+        "calibration_in_the_large": -0.0207,
+        "tpr": 0.5417,
+        "fpr": 0.2558
       }
     ]
   },
   "hte": {
-    "cate_pearson_r": 0.4168417555552437,
-    "cate_spearman_rho": 0.4071974367897471,
-    "ate_true_test": 0.08428248441746528,
-    "ate_pred_test": 0.1230364665389061,
-    "n_randomized_all_comers": 902.0,
-    "n_randomized_top50pct": 408.0,
-    "n_randomized_top50pct_oracle": 212.0,
-    "randomized_sample_reduction_top50pct": 0.5476718403547671
+    "cate_pearson_r": 0.62982988703904,
+    "cate_spearman_rho": 0.626687338749355,
+    "ate_true_test": 0.2694070558802304,
+    "ate_pred_test": 0.3330232501029968,
+    "n_randomized_all_comers": 100.0,
+    "n_randomized_top50pct": 58.0,
+    "n_randomized_top50pct_oracle": 46.0,
+    "randomized_sample_reduction_top50pct": 0.42000000000000004
   },
   "enrichment_table": [
     {
       "enrolled_fraction": 1.0,
-      "true_response_active": 0.3282,
-      "true_response_sham": 0.2439,
-      "true_effect": 0.0843,
-      "n_per_arm": 451.0,
-      "n_randomized": 902.0,
-      "n_screened": 902.0
+      "true_response_active": 0.5068,
+      "true_response_sham": 0.2374,
+      "true_effect": 0.2694,
+      "n_per_arm": 50.0,
+      "n_randomized": 100.0,
+      "n_screened": 100.0
     },
     {
       "enrolled_fraction": 0.8,
-      "true_response_active": 0.3347,
-      "true_response_sham": 0.238,
-      "true_effect": 0.0967,
-      "n_per_arm": 342.0,
-      "n_randomized": 684.0,
-      "n_screened": 855.0
+      "true_response_active": 0.5651,
+      "true_response_sham": 0.2524,
+      "true_effect": 0.3127,
+      "n_per_arm": 38.0,
+      "n_randomized": 76.0,
+      "n_screened": 95.0
     },
     {
       "enrolled_fraction": 0.6,
-      "true_response_active": 0.3745,
-      "true_response_sham": 0.2548,
-      "true_effect": 0.1197,
-      "n_per_arm": 236.0,
-      "n_randomized": 472.0,
-      "n_screened": 786.6667
+      "true_response_active": 0.6067,
+      "true_response_sham": 0.2617,
+      "true_effect": 0.345,
+      "n_per_arm": 32.0,
+      "n_randomized": 64.0,
+      "n_screened": 106.6667
     },
     {
       "enrolled_fraction": 0.5,
-      "true_response_active": 0.3924,
-      "true_response_sham": 0.2626,
-      "true_effect": 0.1298,
-      "n_per_arm": 204.0,
-      "n_randomized": 408.0,
-      "n_screened": 816.0
+      "true_response_active": 0.6243,
+      "true_response_sham": 0.2649,
+      "true_effect": 0.3594,
+      "n_per_arm": 29.0,
+      "n_randomized": 58.0,
+      "n_screened": 116.0
     },
     {
       "enrolled_fraction": 0.4,
-      "true_response_active": 0.4101,
-      "true_response_sham": 0.268,
-      "true_effect": 0.1421,
-      "n_per_arm": 173.0,
-      "n_randomized": 346.0,
-      "n_screened": 865.0
+      "true_response_active": 0.6402,
+      "true_response_sham": 0.2675,
+      "true_effect": 0.3728,
+      "n_per_arm": 27.0,
+      "n_randomized": 54.0,
+      "n_screened": 135.0
     },
     {
       "enrolled_fraction": 0.3,
-      "true_response_active": 0.4316,
-      "true_response_sham": 0.2768,
-      "true_effect": 0.1548,
-      "n_per_arm": 149.0,
-      "n_randomized": 298.0,
-      "n_screened": 993.3333
+      "true_response_active": 0.6476,
+      "true_response_sham": 0.272,
+      "true_effect": 0.3756,
+      "n_per_arm": 27.0,
+      "n_randomized": 54.0,
+      "n_screened": 180.0
     },
     {
       "enrolled_fraction": 0.2,
-      "true_response_active": 0.4617,
-      "true_response_sham": 0.2895,
-      "true_effect": 0.1721,
-      "n_per_arm": 124.0,
-      "n_randomized": 248.0,
-      "n_screened": 1240.0
+      "true_response_active": 0.6606,
+      "true_response_sham": 0.2681,
+      "true_effect": 0.3925,
+      "n_per_arm": 25.0,
+      "n_randomized": 50.0,
+      "n_screened": 250.0
     }
   ]
 }
